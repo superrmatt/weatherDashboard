@@ -23,11 +23,6 @@ $(document).ready(function(){
     };
 
     /*
-    * todays date
-    */
-    var today = moment().format("DD/MM/YYYY");
-
-    /*
     * listener that handles when search button is clicked
     */
     $(".searchBtn").click(function(e){
@@ -47,10 +42,12 @@ $(document).ready(function(){
     * takes the raw parts of the URL and builds the final link for querying
     */
     function buildURL(city){
-        let apiLink = "https://api.openweathermap.org/data/2.5/weather?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial&q=";
+        let apiLink = "https://api.openweathermap.org/data/2.5/weather";
+        let apiQuery = "?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
         
         let resultCity = city.replace(" ", "%20");
-        let fullURL = apiLink + resultCity;
+        resultCity = "&q=" + resultCity; 
+        let fullURL = apiLink + apiQuery + resultCity;
         console.log("query link = " + fullURL);
 
         return fullURL;
@@ -93,7 +90,12 @@ $(document).ready(function(){
     */
     function populateWeather(){
 
-        $("#top").html(weather.city + ", " + weather.country + " (" + today + ") " + weather.icon);
+        let today = moment();
+        let todayDate = today.format("MM/DD/YYYY");
+        
+
+        //today
+        $("#top").html(weather.city + ", " + weather.country + " (" + todayDate + ") " + weather.icon);
         $("#tempNow").html("Temperature: " + weather.currentTemp + "&#8457");
         $("#tempMax").html("Minimum: " + weather.maxTemp + "&#8457");
         $("#tempMin").html("Maximum: " + weather.minTemp + "&#8457");
@@ -101,5 +103,22 @@ $(document).ready(function(){
         $("#humidity").html("Humidity " + weather.humidity + "%");
         $("#wind").html("Wind: " + weather.windSpeed + "mph");
 
+        //five day
+        $(".fiveDayForecast").html("5-Day Forecast:")
+        for(let i = 1; i < 6; i ++){
+            let next = moment(today).add(i, 'd');
+            let nextDate = next.format("MM/DD/YYYY");
+            //consider if blocks to populate for each day.
+            //if ( i===1){ execute code on day1}
+            //----------OR----------------
+            //if (i ===1) {set some tracker variable as "day1" or something} <--- this method might prove neater
+
+            
+
+            $("#day" + i + "Date").html(nextDate);
+            $("#day" + i + "Icon").html(weather.icon);
+        }
+
+        
     }
 });
