@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
     /*
-    * string stores an instance of apiKey with weatherAPI and &appid=
+    * string stores an instance of apiKey with weatherAPI and &appid=, and units = imperial
     */
-    var apiKey = "&appid=dba8e4e798d907acb9b0e7ea7244cf27";
+    var apiKey = "&appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
 
     /*
     * string stores instance of API link
@@ -23,7 +23,22 @@ $(document).ready(function(){
     /*
     * weather object, stores all relevant weather data points
     */
-    var weather = {}
+    var weather = {
+        id: "",
+        mainWeather: "",
+        description: "",
+        icon: "",
+
+        currentTemp: "",
+        minTemp: "",
+        maxTemp: "",
+        feelsLike: "",
+        pressure: "",
+        humidity: "",
+
+        windSpeed: "",
+        windDir: ""
+    };
 
     /*
     * listener that handles when search button is clicked
@@ -66,26 +81,29 @@ $(document).ready(function(){
             url: url,
             method: "GET"
           }).then(function(response) {
-            //assign variables for current weather situation
-            //edit weather object instead
-            var currentTemp = response.main.temp,
-                minTemp = response.main.temp_min,
-                maxTemp = response.main.temp_max,
-                feelsLike = response.main.feels_like,
-                currentPressure = response.main.pressure,
-                currentHumidity = response.main.humidity;
-            var mainWeather = response.weather.main,
-                weatherDescription = response.weather.description;
+            weather.id = response.weather[0].id;
+            weather.mainWeather = response.weather[0].main;
+            weather.description = response.weather[0].description;
+            weather.icon = response.weather[0].icon;
 
+            weather.currentTemp = response.main.temp;
+            weather.minTemp = response.main.temp_min;
+            weather.maxTemp = response.main.temp_max;
+            weather.feelsLike = response.main.feels_like;
+            weather.pressure = response.main.pressure;
+            weather.humidity = response.main.humidity;
+
+            weather.windSpeed = response.wind.speed;
+            weather.windDir = response.wind.deg;
+            console.log(weather);
           });
-
     }
 
     /*
     * prints current forecast into page
     */
     function showCurrent(){
-
+        $(".todaysWeather")
     }
 
     /*
