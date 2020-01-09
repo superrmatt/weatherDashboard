@@ -1,29 +1,10 @@
 $(document).ready(function(){
 
     /*
-    * string stores an instance of apiKey with weatherAPI and &appid=, and units = imperial
-    */
-    var apiKey = "&appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
-
-    /*
-    * string stores instance of API link
-    */
-    var apiLink = "https://api.openweathermap.org/data/2.5/weather?q=";
-
-    /*
-    * string stores additional query link
-    */
-    var query = "";
-
-    /*
-    * string of current city
-    */
-    var currentCity = "";
-
-    /*
     * weather object, stores all relevant weather data points
     */
     var weather = {
+        name: "",
         id: "",
         mainWeather: "",
         description: "",
@@ -64,9 +45,10 @@ $(document).ready(function(){
     * takes the raw parts of the URL and builds the final link for querying
     */
     function buildURL(city){
-        //create URL
+        let apiLink = "https://api.openweathermap.org/data/2.5/weather?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial&q=";
+        
         let resultCity = city.replace(" ", "%20");
-        let fullURL = apiLink + resultCity + apiKey;
+        let fullURL = apiLink + resultCity;
         console.log("query link = " + fullURL);
 
         return fullURL;
@@ -81,6 +63,8 @@ $(document).ready(function(){
             url: url,
             method: "GET"
           }).then(function(response) {
+            weather.name = response.name;
+            
             weather.id = response.weather[0].id;
             weather.mainWeather = response.weather[0].main;
             weather.description = response.weather[0].description;
