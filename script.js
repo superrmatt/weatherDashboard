@@ -4,7 +4,8 @@ $(document).ready(function(){
     * weather object, stores all relevant weather data points
     */
     var weather = {
-        name: "",
+        city: "",
+        country: "",
         id: "",
         mainWeather: "",
         description: "",
@@ -22,8 +23,12 @@ $(document).ready(function(){
     };
 
     /*
+    * todays date
+    */
+    var today = moment().format("DD/MM/YYYY");
+
+    /*
     * listener that handles when search button is clicked
-    * populates weather
     */
     $(".searchBtn").click(function(e){
 
@@ -32,13 +37,10 @@ $(document).ready(function(){
         console.log("current city = " + city);
 
         //buildURL
-        url = buildURL(city);
-        //ajax call to api
-        callAjax(url);
-        //populate current weather
-        showCurrent();
-        //populate 5-day
-        showFiveDay();
+        let url = buildURL(city);
+        //ajax call to api, run populateWeather() upon completion via callback
+        buildWeather(url, populateWeather);
+ 
     });
 
     /*
@@ -57,44 +59,47 @@ $(document).ready(function(){
     /*
     * runs ajax, makes listener a litte neater looking
     */
-    function callAjax(url){
+    function buildWeather(url, callback) {
 
         $.ajax({
             url: url,
             method: "GET"
           }).then(function(response) {
-            weather.name = response.name;
-            
+            //populate weather object
+            weather.city = response.name;
+            weather.country = response.sys.country;
+
             weather.id = response.weather[0].id;
             weather.mainWeather = response.weather[0].main;
             weather.description = response.weather[0].description;
             weather.icon = response.weather[0].icon;
 
-            weather.currentTemp = response.main.temp;
-            weather.minTemp = response.main.temp_min;
-            weather.maxTemp = response.main.temp_max;
-            weather.feelsLike = response.main.feels_like;
+            weather.currentTemp = Math.round(response.main.temp);
+            weather.minTemp = Math.round(response.main.temp_min);
+            weather.maxTemp = Math.round(response.main.temp_max);
+            weather.feelsLike = Math.round(response.main.feels_like);
             weather.pressure = response.main.pressure;
             weather.humidity = response.main.humidity;
 
             weather.windSpeed = response.wind.speed;
-            weather.windDir = response.wind.deg;
+
             console.log(weather);
+            callback();
           });
-    }
+      }      
 
     /*
-    * prints current forecast into page
+    * prints current forecast onto page
     */
-    function showCurrent(){
-        $(".todaysWeather")
+    function populateWeather(){
+
+        $("#top").html(weather.city + ", " + weather.country + " (" + today + ") " + weather.icon);
+        $("#tempNow").html("Temperature: " + weather.currentTemp + "&#8457");
+        $("#tempMax").html("Minimum: " + weather.maxTemp + "&#8457");
+        $("#tempMin").html("Maximum: " + weather.minTemp + "&#8457");
+        $("#tempFeels").html("Feels like: " + weather.minTemp + "&#8457");
+        $("#humidity").html("Humidity " + weather.humidity + "%");
+        $("#wind").html("Wind: " + weather.windSpeed + "mph");
+
     }
-
-    /*
-    * prints 5-day forecast into page
-    */
-    function showFiveDay(){
-
-    }
-
 });
