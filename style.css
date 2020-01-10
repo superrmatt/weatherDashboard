@@ -1,3 +1,19 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .tab {
     margin-left:25px;
+}
+
+.squish {
+    margin-bottom: 5px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.daily {
+    color: white;
 }

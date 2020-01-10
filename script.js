@@ -232,9 +232,21 @@ $(document).ready(function(){
 
             $("#day" + day + "Date").html(parsedDate);
             $("#day" + day + "Icon").html(fiveDay[i].icon);
-            $("#day" + day + "Temp").html("Temperature: " + fiveDay[i].temperature);
+            $("#day" + day + "Temp").html("Temp: " + fiveDay[i].temperature);
             $("#day" + day + "Humidity").html("Humidity: " + fiveDay[i].humidity)
-            
         }
+        //lastly, style it up!
+        style();
+    }
+
+    /*
+    * sets up the css on the page for final result.
+    */
+    function style(){
+        
+        $(".background").css("background-color", "blue");
+        $(".addBorder").addClass("border");
+        $(".daily").css("margin", "6px");
+        
     }
 });
