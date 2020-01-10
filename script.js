@@ -147,7 +147,6 @@ $(document).ready(function(){
         let resultCity = city.replace(" ", "%20");
         resultCity = "&q=" + resultCity; 
         let fullURL = apiLink + apiQuery + resultCity;
-        console.log("5-day link = " + fullURL);
 
         return fullURL;
     }
@@ -202,7 +201,6 @@ $(document).ready(function(){
                     success: function(response) {
                         weather.uvIndex = response[0].value;
 
-                        console.log("2nd ajax call done - UV");
                         //lastly 5-day weather
                         $.ajax({
                             url: url3,
@@ -213,7 +211,6 @@ $(document).ready(function(){
                                 //this ensures one reading per day, all at same time.
                                 let j = 7;
                                 for(let i = 0; i < fiveDay.length; i++){
-                                    console.log("i = " + i);
                                     fiveDay[i].icon = response.list[j].weather[0].icon;
                                     fiveDay[i].temperature = Math.round(response.list[j].main.temp);
                                     fiveDay[i].humidity = response.list[j].main.humidity;
