@@ -1,92 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
 
-    <title>Weather</title>
-</head>
+        <title>Weather</title>
+    </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Weather Dashboard</a>
         </nav>
 
-        <div class="row">
-            <div class="col-md-4 searchCol">
-                <!-- add input and button for search -->
-                <div class="searchArea">
-                    <strong><p>Search for a City:</p></strong>
-                    <input id="searchInput"></input>
-                    <button type="button" class="btn btn-primary searchBtn"><i class="fas fa-search"></i></button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 searchCol">
+                    <!-- add input and button for search -->
+                    <div class="searchArea">
+                        <strong><p>Search for a City:</p></strong>
+                        <input id="searchInput"></input>
+                        <button type="button" class="btn btn-primary searchBtn"><i class="fas fa-search"></i></button>
+                        <!-- put history searches here!!!!!!! -->
+                    </div>
+                
+                    <div class="history">
+                        <!-- show saved cities via js -->
+                        <!-- show cities as buttons, or make a new row, with a col per city-->
+                    </div>
                 </div>
-               
-                <div class="history">
-                    <!-- show saved cities via js -->
-                    <!-- show cities as buttons, or make a new row, with a col per city-->
-                </div>
-            </div>
 
-            <div class="col-md-8">
-                <!-- has two rows, each with 1 col -->
-                <div class="row">
-                    <div class="col-md-8 todaysWeather">
-                        <!-- shows today -->
-                        <p id="top">
-                            <!-- will show city, country (Date) when city searched-->
-                        </p>
-                        <div class="temp">
-                            <!-- will show temp when city searched -->
-                            <p id="tempNow"></p>
-                            <p id="tempMax" class="tab"></p>
-                            <p id="tempMin" class="tab"></p>
-                            <p id="tempFeels" class="tab"></p>
-                        </div>
-                        <p id="humidity">
-                            <!-- will show humidity-->
-                        </p>
-                        <p id="wind">
-                            <!--shows wind stuff-->
+                <div class="col-md-7">
+                    <!-- has two rows, each with 1 col -->
+                    <div class="row">
+                        <div class="col-md-8 todaysWeather">
+                            <!-- shows today -->
+                            <p id="top">
+                                <!-- will show city, country (Date) when city searched-->
+                            </p>
+                            <div class="temp">
+                                <!-- will show temp when city searched -->
+                                <p id="tempNow"></p>
+                                <p id="tempMax" class="tab"></p>
+                                <p id="tempMin" class="tab"></p>
+                                <p id="tempFeels" class="tab"></p>
+                            </div>
+                            <p id="humidity">
+                                <!-- will show humidity -->
+                            </p>
+                            <p id="wind">
+                                <!-- shows wind stuff -->
+                            </p>
+                            <p id="uvIndex">
+                                <!-- you guessed it, Uv index goes here! -->
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8 fiveDayForecast">
-                        <!-- shows 5 day forecast -->
-                        <div class="day1">
-                            <p id="day1Date"></p>
-                            <p id="day1Icon"></p>
-                            <p id="day1Temp"></p>
-                            <p id="day1Humiity"></p>
-                        </div>
-                        <div class="day2">
-                            <p id="day2Icon"></p>
-                            <p id="day2Temp"></p>
-                            <p id="day2Humiity"></p>
-                        </div>
-                        <div class="day3">
-                            <p id="day3Icon"></p>
-                            <p id="day3Temp"></p>
-                            <p id="day3Humiity"></p>
-                        </div>
-                        <div class="day4">
-                            <p id="day4Icon"></p>
-                            <p id="day4Temp"></p>
-                            <p id="day4Humiity"></p>
-                        </div>
-                        <div class="day5">
-                            <p id="day5Icon"></p>
-                            <p id="day5Temp"></p>
-                            <p id="dayHumiity"></p>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 fiveDayForecast">
+                    <!-- shows 5 day forecast -->
+                    <div class="day1">
+                        <p id="day1Date"></p>
+                        <p id="day1Icon"></p>
+                        <p id="day1Temp"></p>
+                        <p id="day1Humiity"></p>
+                    </div>
+                    <div class="day2">
+                        <p id="day2Icon"></p>
+                        <p id="day2Temp"></p>
+                        <p id="day2Humiity"></p>
+                    </div>
+                    <div class="day3">
+                        <p id="day3Icon"></p>
+                        <p id="day3Temp"></p>
+                        <p id="day3Humiity"></p>
+                    </div>
+                    <div class="day4">
+                        <p id="day4Icon"></p>
+                        <p id="day4Temp"></p>
+                        <p id="day4Humiity"></p>
+                    </div>
+                    <div class="day5">
+                        <p id="day5Icon"></p>
+                        <p id="day5Temp"></p>
+                        <p id="dayHumiity"></p>
                     </div>
                 </div>
             </div>
         </div>
-        
+    
+
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
