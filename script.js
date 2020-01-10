@@ -273,8 +273,8 @@ $(document).ready(function(){
 
             $("#day" + day + "Date").html(parsedDate);
             $("#day" + day + "Icon").html("<img src=\"./icon_images/" + fiveDay[i].icon +".png\" alt=\"icon " + fiveDay[i].icon + "\"></img>");
-            $("#day" + day + "Temp").html("Temp: " + fiveDay[i].temperature);
-            $("#day" + day + "Humidity").html("Humidity: " + fiveDay[i].humidity)
+            $("#day" + day + "Temp").html("Temp: " + fiveDay[i].temperature + "&#8457");
+            $("#day" + day + "Humidity").html("Humidity: " + fiveDay[i].humidity + "%");
         }
         //lastly, style it up!
         style();
