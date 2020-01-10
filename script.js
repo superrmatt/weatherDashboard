@@ -240,8 +240,8 @@ $(document).ready(function(){
         //today
         $("#top").html(weather.city + ", " + weather.country + " (" + todayDate + ") <img src=\"./icon_images/" + weather.icon +".png\" alt=\"icon " + weather.icon + "\"></img>");
         $("#tempNow").html("Temperature: " + weather.currentTemp + "&#8457");
-        $("#tempMax").html("Low: " + weather.maxTemp + "&#8457");
-        $("#tempMin").html("High: " + weather.minTemp + "&#8457");
+        $("#tempMax").html("Low: " + weather.minTemp + "&#8457");
+        $("#tempMin").html("High: " + weather.maxTemp + "&#8457");
         $("#tempFeels").html("Feels like: " + weather.minTemp + "&#8457");
         $("#humidity").html("Humidity " + weather.humidity + "%");
         $("#wind").html("Wind: " + weather.windSpeed + "mph");
