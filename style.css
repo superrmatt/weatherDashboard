@@ -17,3 +17,11 @@ html {
 .daily {
     color: white;
 }
+
+#uvIndex {
+    display: flex;
+}
+
+.alert {
+    display: inline-block;
+}

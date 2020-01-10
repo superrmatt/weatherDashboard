@@ -130,7 +130,7 @@ $(document).ready(function(){
         let fullURL = apiLink + apiQuery + resultCoord;
 
         return fullURL;
-        //unlike the other two calls, this one will never have spaces, so need to replace them with %20
+        //unlike the other two calls, this one will never have spaces, so need to replace them with %20, in case anyone was wondering.
     }
 
     /*
@@ -183,6 +183,7 @@ $(document).ready(function(){
                 weather.description = response.weather[0].description;
                 weather.icon = response.weather[0].icon;
             
+                //round 'em, because who, besides meteoroligists or fanatics, measure temperature to the hundredth place.
                 weather.currentTemp = Math.round(response.main.temp);
                 weather.minTemp = Math.round(response.main.temp_min);
                 weather.maxTemp = Math.round(response.main.temp_max);
@@ -249,7 +250,21 @@ $(document).ready(function(){
         $("#wind").html("Wind: " + weather.windSpeed + "mph");
 
         //UVindex
-        $("#uvIndex").html("UV Index: " + weather.uvIndex);
+        //determine severity of UV index.
+        //Disclosure: these calculations are not meant to be guidlines. Any aount of UV radiation is harmful and should be avoided when possible.
+        let sevString = "";
+        if(weather.uvIndex < 3){
+            //0 - 2.99 = low
+            sevString = "<div class=\"alert alert-success\" role=\"alert\">";
+        }else if(weather.uvIndex >= 3 && weather.uvIndex <= 6){
+            //3 - 6 = moderate
+            sevString = "<div class=\"alert alert-warning\" role=\"alert\">";
+        }else if(weather.uvIndex > 6 && weather.uvIndex <= 10){
+            //6 - 10 = high
+            sevString = "<div class=\"alert alert-danger\" role=\"alert\">";
+        }
+        //add html
+        $("#uvIndex").html("UV Index: " + sevString + weather.uvIndex + "</div>");
         
         //five day
         $(".fiveDayForecast").text("5-Day Forecast:")
@@ -279,5 +294,6 @@ $(document).ready(function(){
         //this might look funky, BUT, since Bootstrap has built-in border class, and having borders in these divs before weather is shown looks silly, I thought it best to make a placeholder class with no CSS effects. Now just add Bootstrap border class upon compeltion and viola! Borders.
         $(".addBorder").addClass("border");
         $(".daily").css("margin", "6px");
+
     }
 });
