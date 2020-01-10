@@ -46,14 +46,14 @@ $(document).ready(function(){
         let url2 = buildURLTwo(city);
         let url3 = buildURLThree(city);
         //ajax call to api, run populateWeather() upon completion via callback
-        buildWeather(url, populateWeather);
+        buildWeather(url1, url2, url3);
  
     });
 
     /*
     * takes the raw parts of the URL and builds the final link for queryiing todays weather
     */
-    function buildURLOne(city, callType){
+    function buildURLOne(city){
         let apiLink = "https://api.openweathermap.org/data/2.5/weather";
         let apiQuery = "?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
         
@@ -68,14 +68,14 @@ $(document).ready(function(){
     /*
     * takes the raw parts of the URL and builds the final link for queryiing UV index
     */
-    function buildURLTwo(city, callType){
-        let apiLink = "https://api.openweathermap.org/data/2.5/weather";
+    function buildURLTwo(city){
+        let apiLink = "https://api.openweathermap.org/data/2.5/forecast";
         let apiQuery = "?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
-        
+
         let resultCity = city.replace(" ", "%20");
         resultCity = "&q=" + resultCity; 
         let fullURL = apiLink + apiQuery + resultCity;
-        console.log("query link = " + fullURL);
+        console.log("UV link = " + fullURL);
 
         return fullURL;
     }
@@ -83,7 +83,7 @@ $(document).ready(function(){
     /*
     * takes the raw parts of the URL and builds the final link for queryiing five day
     */
-    function buildURLThree(city, callType){
+    function buildURLThree(city){
         let apiLink = "https://api.openweathermap.org/data/2.5/weather";
         let apiQuery = "?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
         
