@@ -211,7 +211,7 @@ $(document).ready(function(){
                                 //populate five day array.
                                 //j 'iterates' the JSON response. 8 since we get weather update every 3 hours, (24/3) = 8.
                                 //this ensures one reading per day, all at same time.
-                                let j = 0;
+                                let j = 7;
                                 for(let i = 0; i < fiveDay.length; i++){
                                     console.log("i = " + i);
                                     fiveDay[i].icon = response.list[j].weather[0].icon;
