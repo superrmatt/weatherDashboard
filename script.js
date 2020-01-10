@@ -28,13 +28,40 @@ $(document).ready(function(){
     };
 
     /*
-    * 5 day weather object
+    * 5 day weather. array of objects, one for each day.
     */
-    var fiveDay = {
-        icon: "",
-        temperature: "",
-        humidity: ""
-    };
+    var fiveDay = [
+        {
+            icon: "",
+            temperature: "",
+            humidity: "",
+            date: ""
+        }, 
+        {
+            icon: "",
+            temperature: "",
+            humidity: "",
+            date: ""
+        }, 
+        {
+            icon: "",
+            temperature: "",
+            humidity: "",
+            date: ""
+        }, 
+        {
+            icon: "",
+            temperature: "",
+            humidity: "",
+            date: ""
+        }, 
+        {
+            icon: "",
+            temperature: "",
+            humidity: "",
+            date: ""
+        },    
+    ];
 
     /*
     * listener that handles when search button is clicked
@@ -88,13 +115,13 @@ $(document).ready(function(){
     * takes the raw parts of the URL and builds the final link for queryiing five day
     */
     function buildURLThree(city){
-        let apiLink = "https://api.openweathermap.org/data/2.5/weather";
+        let apiLink = "https://api.openweathermap.org/data/2.5/forecast";
         let apiQuery = "?appid=dba8e4e798d907acb9b0e7ea7244cf27&units=imperial";
         
         let resultCity = city.replace(" ", "%20");
         resultCity = "&q=" + resultCity; 
         let fullURL = apiLink + apiQuery + resultCity;
-        console.log("query link = " + fullURL);
+        console.log("5-day link = " + fullURL);
 
         return fullURL;
     }
@@ -103,11 +130,6 @@ $(document).ready(function(){
     * runs ajax, makes listener a litte neater looking
     */
     function buildWeather(url1, url3) {
-
-        //initialize 
-       // var requestCallback = new MyRequestsCompleted({
-       //     numRequest: 3
-       // });
         
         //gets all weather data
         //first todays weather
@@ -136,7 +158,7 @@ $(document).ready(function(){
             
                 weather.windSpeed = response.wind.speed;
             
-                console.log("1st ajax call done");
+                console.log("1st ajax call done - today");
 
                 //need to build link for UV index, since lat/long is needed to query successfully.
                 let url2 = buildURLTwo(weather.lat, weather.lon);
@@ -147,11 +169,23 @@ $(document).ready(function(){
                     success: function(response) {
                         weather.uvIndex = response[0].value;
 
-                        console.log(weather.uvIndex);
+                        console.log("2nd ajax call done - UV");
                         //then 5-day weather
                         $.ajax({
                             url: url3,
-                            success: function(data) {
+                            success: function(response) {
+                               
+                                let j = 0;
+                                for(let i = 0; i < fiveDay.length; i++){
+                                    console.log("i = " + i);
+                                    fiveDay[i].icon = response.list[j].weather[0].icon;
+                                    fiveDay[i].temp = response.list[j].main.temp;
+                                    fiveDay[i].humidity = response.list[j].main.humidity;
+                                    fiveDay[i].date = response.list[j].dt_txt;
+                                    j = j + 8;
+                                }
+
+                                console.log(fiveDay);
                                 
                                 //now that all data has been retrieved, update webpage
                                 populateWeather();
