@@ -60,7 +60,7 @@ $(document).ready(function(){
             temperature: "",
             humidity: "",
             date: ""
-        },    
+        }    
     ];
 
     /*
@@ -175,17 +175,22 @@ $(document).ready(function(){
                             url: url3,
                             success: function(response) {
                                
+                                //populate five day array.
+                                //j 'iterates' the JSON response. 8 since we get weather update every 3 hours, (24/3) = 8.
+                                //this ensures one reading per day, all at same time.
                                 let j = 0;
                                 for(let i = 0; i < fiveDay.length; i++){
                                     console.log("i = " + i);
                                     fiveDay[i].icon = response.list[j].weather[0].icon;
-                                    fiveDay[i].temp = response.list[j].main.temp;
+                                    fiveDay[i].temperature = Math.round(response.list[j].main.temp);
                                     fiveDay[i].humidity = response.list[j].main.humidity;
                                     fiveDay[i].date = response.list[j].dt_txt;
                                     j = j + 8;
                                 }
 
+                                console.log("3rd ajax call done");
                                 console.log(fiveDay);
+                                console.log(weather);
                                 
                                 //now that all data has been retrieved, update webpage
                                 populateWeather();
@@ -218,23 +223,18 @@ $(document).ready(function(){
         $("#uvIndex").html("UV Index: " + weather.uvIndex);
         
         //five day
-        $(".fiveDayForecast").html("5-Day Forecast:")
-        
+        $(".fiveDayForecast").text("5-Day Forecast:")
+        //for each day
+        for(let i = 0; i < fiveDay.length; i ++){
+            let day = i + 1;
 
+            let parsedDate = moment(fiveDay[i].date).format("MM/DD/YYYY");
 
-
-        /*for(let i = 1; i < 6; i ++){
-            let next = moment(today).add(i, 'd');
-            let nextDate = next.format("MM/DD/YYYY");
-            //consider if blocks to populate for each day.
-            //if (i===1){execute code on day1}
-            //----------OR----------------
-            //if (i===1){set some tracker variable as "day1" or something} <--- this method might prove neater
-
-            $("#day" + i + "Date").html(nextDate);
-            $("#day" + i + "Icon").html(weather.icon);
-        }*/
-
-        
+            $("#day" + day + "Date").html(parsedDate);
+            $("#day" + day + "Icon").html(fiveDay[i].icon);
+            $("#day" + day + "Temp").html("Temperature: " + fiveDay[i].temperature);
+            $("#day" + day + "Humidity").html("Humidity: " + fiveDay[i].humidity)
+            
+        }
     }
 });
